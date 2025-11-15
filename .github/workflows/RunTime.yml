@@ -19,9 +19,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Compile C++ program
+      - name: Compile program
         run: g++ add.cpp -o add
 
-      - name: Run program with dynamic input
+      - name: Run with dynamic input
         run: |
           echo "${{ github.event.inputs.a }} ${{ github.event.inputs.b }}" | ./add
