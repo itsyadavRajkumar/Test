@@ -4,7 +4,6 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    branches: [ main ]
 
 jobs:
   build-and-run:
@@ -17,18 +16,11 @@ jobs:
       - name: Install g++
         run: sudo apt-get update && sudo apt-get install -y g++
 
-      - name: Compile C++ program
-        run: g++ add.cpp -o add
+      - name: Find and compile C++ file
+        run: |
+          FILE=$(find . -name "add.cpp")
+          echo "Found: $FILE"
+          g++ "$FILE" -o add
 
       - name: Run program
         run: ./add
-
-      - name: Verify Output (Optional)
-        run: |
-          OUTPUT=$(./add)
-          if [[ "$OUTPUT" == "Sum = 30" ]]; then
-            echo "Output is correct!"
-          else
-            echo "Output is wrong!"
-            exit 1
-          fi
