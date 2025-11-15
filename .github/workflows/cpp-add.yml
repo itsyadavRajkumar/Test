@@ -1,0 +1,34 @@
+name: C++ Add Numbers
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install g++
+        run: sudo apt-get update && sudo apt-get install -y g++
+
+      - name: Compile C++ program
+        run: g++ add.cpp -o add
+
+      - name: Run program
+        run: ./add
+
+      - name: Verify Output (Optional)
+        run: |
+          OUTPUT=$(./add)
+          if [[ "$OUTPUT" == "Sum = 30" ]]; then
+            echo "Output is correct!"
+          else
+            echo "Output is wrong!"
+            exit 1
+          fi
