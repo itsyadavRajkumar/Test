@@ -1,0 +1,27 @@
+name: C++ Dynamic Input Add
+
+on:
+  workflow_dispatch:
+    inputs:
+      a:
+        description: "First number"
+        required: true
+        default: "10"
+      b:
+        description: "Second number"
+        required: true
+        default: "20"
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Compile C++ program
+        run: g++ add.cpp -o add
+
+      - name: Run program with dynamic input
+        run: |
+          echo "${{ github.event.inputs.a }} ${{ github.event.inputs.b }}" | ./add
